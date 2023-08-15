@@ -5,12 +5,11 @@ def top_students(mongo_collection):
     """Mongo database"""
     pipeline = [
         {
-            "$addFields": {
-                "averageScore": { "$avg": "$scores.score" }
+            "$project": {
+                "name": "$name",
+                "averageScore": {"$avg": "$topics.score"}
             }
         },
-        {
-            "$sort": { "averageScore": -1 }
-        }
+        {"$sort": {"averageScore": -1}}
     ]
     return list(mongo_collection.aggregate(pipeline))
