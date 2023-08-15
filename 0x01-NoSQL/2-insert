@@ -1,0 +1,4 @@
+// show database
+db.school.insert({
+    name: "Holberton school"
+})

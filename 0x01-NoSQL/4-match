@@ -1,0 +1,2 @@
+// lists
+db.school.find({ name: "Holberton school" });
