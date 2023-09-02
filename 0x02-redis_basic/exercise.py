@@ -4,7 +4,19 @@ Main file
 """
 import redis
 import uuid
-from typing import Union, Callable
+from typing import Union, Callable, Any
+import functools
+
+
+def count_calls(method: Callable) -> Callable:
+    """ Count methods """
+    @functools.wraps(method)
+    def wrapper(self, *args, **kwargs) -> Any:
+        """ wrapper """
+        if isinstance(self._redis, redis.Redis):
+            self._redis.incr(method.__qualname__)
+        return method(self, *args, **kwargs)
+    return wrapper
 
 
 class Cache:
