@@ -24,7 +24,7 @@ def call_history(method: Callable) -> Callable:
     @functools.wraps(method)
     def invoker(self, *args, **kwargs) -> Any:
         """ wrapper function """
-        inKey = '{}:imputs'.format(method.__qualname__)
+        inKey = '{}:inputs'.format(method.__qualname__)
         outKey = '{}:outputs'.format(method.__qualname__)
         if isinstance(self._redis, redis.Redis):
             self._redis.rpush(inKey, str(args))
